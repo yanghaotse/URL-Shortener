@@ -1,14 +1,11 @@
-const http = 'http://your-project-name.herokuapp.com/'
+const http = 'http://4ritalin2.her0kuapp.com/'
 
 const characterCollection = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split('')
 const numberCollection = "1234567890".split('')
 // console.log(characterCollection,numberCollection)
-let randomShort = ''
-for(let i = 0; i < 4; i++ ){
-  randomShort += randomCharacter()
-}
-randomShort += randomNumber()
-const newUrl = `${http}${randomGenerator(randomShort)}`
+
+
+
 
 function randomCharacter(){
   const randomCharacter = Math.floor(Math.random()*characterCollection.length)
@@ -26,8 +23,23 @@ function randomGenerator(random){
     const j = Math.floor(Math.random() * (i + 1))
     ;[ randomArray[i], randomArray[j] ] = [ randomArray[j], randomArray[i] ]
   }
-  return randomArray.join('')
+  return randomArray.join('') //回傳五碼字串
     
 }
 
-module.exports = newUrl
+function shortUrlGenerator(){
+  let randomShort = ''
+  for(let i = 0; i < 4; i++ ){
+    randomShort += randomCharacter()
+  }
+  randomShort += randomNumber()
+  const shortUrl = `${http}${randomGenerator(randomShort)}`
+  return shortUrl
+}
+
+function generateNewShortUrl() {
+  return shortUrlGenerator()
+}
+
+
+module.exports = generateNewShortUrl

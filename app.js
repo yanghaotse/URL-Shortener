@@ -1,8 +1,8 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
-const randomUrl = require("./randomUrlGenerator") //randomUrlGenerator function
-
+const shortUrl = require("./shortUrlGenerator") //shortUrlGenerator function
+const URLshortener = require('./models/urlShortener')
 
 const app = express()
 const port = 3000
@@ -30,9 +30,14 @@ app.get('/', (req, res) => {
 })
 
 app.get('/newURL', (req,res) => {
-  const name = req.query.name
-  console.log(name)
-  res.render('new', {name})
+  const originalUrl = req.query.originalUrl
+  const shortUrl = shortUrl()
+  return URLshortener.create({
+    originalUrl: originalUrl,
+    shortUrl: shortUrl
+  })
+    .then( () => res.render('new',{shortUrl}))
+    .catch(error => console.log(error))
 })
 
 app.listen( port, () => {
