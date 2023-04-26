@@ -1,4 +1,5 @@
-const http = 'http://4ritalin2.her0kuapp.com/'
+const http = 'http://localhost:3000/'
+const myHttp = '4ritalin2pr0jectA11.com/'
 
 const characterCollection = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split('')
 const numberCollection = "1234567890".split('')
@@ -27,19 +28,24 @@ function randomGenerator(random){
     
 }
 
-function shortUrlGenerator(){
+function basicShortUrlGenerator(){
   let randomShort = ''
   for(let i = 0; i < 4; i++ ){
     randomShort += randomCharacter()
   }
   randomShort += randomNumber()
-  const shortUrl = `${http}${randomGenerator(randomShort)}`
+  const shortUrl = `${http}${myHttp}${randomGenerator(randomShort)}`
   return shortUrl
 }
 
-function generateNewShortUrl() {
-  return shortUrlGenerator()
+function shortUrlGenerator() {
+  return basicShortUrlGenerator()
 }
 
 
-module.exports = generateNewShortUrl
+module.exports = { shortUrlGenerator, myHttp }
+
+// module.exports = {
+//   shortUrlGenerate: shortUrlGenerate,
+//   myHttp: myHttp
+// };

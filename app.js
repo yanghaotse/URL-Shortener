@@ -1,8 +1,8 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
-const shortUrl = require("./shortUrlGenerator") //shortUrlGenerator function
-const URLshortener = require('./models/urlShortener')
+const {shortUrlGenerator, myHttp} = require("./shortUrlGenerator") //shortUrlGenerator function
+const URLshortener = require('./models/urlShortener') //資料
 
 const app = express()
 const port = 3000
@@ -26,21 +26,48 @@ db.once('open', async() => {
 
 
 app.get('/', (req, res) => {
+  console.log(myHttp)
   res.render('index')
 })
 
-app.get('/newURL', (req,res) => {
-  const originalUrl = req.query.originalUrl
-  const shortUrl = shortUrl()
-  return URLshortener.create({
-    originalUrl: originalUrl,
-    shortUrl: shortUrl
-  })
-    .then( () => res.render('new',{shortUrl}))
+app.post('/newURL', (req,res) => {
+  const originalUrl = req.body.originalUrl
+  const newUrl = shortUrlGenerator()
+  if(!originalUrl){
+    res.redirect('/')
+  }
+  // console.log(originalUrl)
+  URLshortener.find()
+    .lean()
+    .then( urlData => {
+      // return console.log(urlData)
+      const sameUrl = urlData.find( (data) => data.originalUrl === originalUrl)
+      if(sameUrl){
+        return res.render('new',{ newUrl: sameUrl.shortUrl})
+      }else{
+        return URLshortener.create({
+            originalUrl: originalUrl,
+            shortUrl: newUrl
+          })
+          .then(() => res.render('new',{newUrl}))
+        }
+      })
     .catch(error => console.log(error))
+})
+app.get('/4ritalin2pr0jectA11.com/:randomUrl',(req, res) => {
+  const randomUrl = req.params.randomUrl
+  const sameUrl = URLshortener.find( urlData => {
+
+  })
 })
 
 app.listen( port, () => {
   console.log(`app is running on http://localhost:${port}` )
 })
 
+    // .then(() => {
+    //   const newUrl = URLshortener.find(data => {
+    //     data.originalUrl.toLowerCase().trim().includes(originalUrl.toLowerCase().trim())
+    //     return 
+    //   })
+    // })
