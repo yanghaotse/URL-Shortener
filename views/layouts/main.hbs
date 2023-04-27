@@ -7,11 +7,20 @@
   <title>URL-shortener</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="../../public/stylesheets/style.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
   <div class="container">
-    {{{body}}}
+    <div class="main-container mb-5">
+      <a href="/">
+        <h1 class="mb-5">URL Shortener</h1>
+        <img src="https://assets-lighthouse.alphacamp.co/uploads/image/file/16716/ExportedContentImage_00.png"
+          alt="URLshortener-image">
+      </a>
+    </div>
+    <div class="form-container">
+      {{{body}}}
+    </div>
   </div>
 
 
@@ -20,10 +29,11 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
     integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 {{!-- 表單驗證監聽 --}}
+{{!-- 若使用者沒有輸入內容，就按下了送出鈕，需要防止表單送出並提示使用者 --}}
   <script>
-    const generateButton = document.querySelector('#generate-button')
+    const shortenButton = document.querySelector('#shorten-button')
     const generateForm = document.querySelector('#generate-form')
-    generateButton.addEventListener('click', function onGenerateButtonClicked(event){
+    shortenButton.addEventListener('click', function onGenerateButtonClicked(event){
       generateForm.classList.add('was-validated')
     })
   </script>

@@ -2,7 +2,7 @@ const express = require('express')
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 const {shortUrlGenerator, myHttp, http} = require("./shortUrlGenerator") //shortUrlGenerator function
-const URLshortener = require('./models/urlShortener') //資料
+const URLshortener = require('./models/urlShortener') //mongodb資料
 
 const app = express()
 const port = 3000
@@ -10,6 +10,7 @@ const port = 3000
 app.engine('hbs', exphbs({ defaultLayout : "main", extname : ".hbs"}))
 app.set('view engine','hbs')
 app.use(express.urlencoded({ extended : true})) //body-parser
+app.use(express.static('public'))//
 
 if(process.env.NODE_URI !== "production"){
   require("dotenv").config()
@@ -29,7 +30,7 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
-// 產生短網址route : findOne()
+// route: POST產生短網址 -> findOne()
 app.post('/newUrl', (req, res) => {
   const originalUrl = req.body.originalUrl
   const newUrl = shortUrlGenerator()
@@ -53,8 +54,7 @@ app.post('/newUrl', (req, res) => {
     .catch(error => console.log(error))
 })
 
-
-// 產生短網址route : find()
+// route: POST產生短網址 -> find()
 // app.post('/newURL', (req,res) => {
 //   const originalUrl = req.body.originalUrl
 //   const newUrl = shortUrlGenerator()
@@ -84,7 +84,6 @@ app.get(`/${myHttp}:randomCode`,(req, res) => {
   const randomCode = req.params.randomCode
   const shortUrl = `${http}${myHttp}${randomCode}`
   // console.log(randomCode)
-  // console.log(shortUrl)
   URLshortener.findOne({ shortUrl : shortUrl })
     .lean()
     .then(urlData => {

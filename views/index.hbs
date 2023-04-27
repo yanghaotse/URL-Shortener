@@ -1,10 +1,12 @@
 <form action="/newURL" method="POST" id="generate-form">
   <div class="input-group has-validation">
-    <input type="text" name="originalUrl" placeholder="請輸入網址..." class="form-control" aria-describedby="validationFeedback" required>
-    <button type="submit" id="generate-button">Generate</button>
+    <input type="text" name="originalUrl" placeholder="Input URL here..." class="form-control" aria-describedby="validationFeedback" id="originalUrl-input" required>
     <div class="invalid-feedback" id="validationFeedback">
       Please enter URL.
     </div>
-    
+    {{!-- <div class="shorten-button-div">
+      
+    </div> --}}
   </div>
+  <button type="submit" class="btn btn-outline-primary mt-3" id="shorten-button">Shorten</button>
 </form>
