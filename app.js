@@ -30,36 +30,61 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
-app.post('/newURL', (req,res) => {
+app.post('/newUrl', (req, res) => {
   const originalUrl = req.body.originalUrl
   const newUrl = shortUrlGenerator()
   if(!originalUrl){
     res.redirect('/')
   }
-  // console.log(originalUrl)
-  URLshortener.find()
+  URLshortener.findOne({ originalUrl : originalUrl})
     .lean()
-    .then( urlData => {
-      // return console.log(urlData)
-      const sameUrl = urlData.find( (data) => data.originalUrl === originalUrl)
-      if(sameUrl){
-        return res.render('new',{ newUrl: sameUrl.shortUrl})
+    .then(urlData => {
+      if (urlData){
+        res.render('new', {newUrl: urlData.shortUrl})
       }else{
-        return URLshortener.create({
-            originalUrl: originalUrl,
-            shortUrl: newUrl
-          })
-          .then(() => res.render('new',{newUrl}))
-        }
-      })
+        URLshortener.create({
+          originalUrl: originalUrl,
+          shortUrl: newUrl
+        })
+        .then(() => res.render('new', {newUrl}))
+      }
+    })
     .catch(error => console.log(error))
 })
-app.get('/4ritalin2pr0jectA11.com/:randomUrl',(req, res) => {
-  const randomUrl = req.params.randomUrl
-  const sameUrl = URLshortener.find( urlData => {
 
-  })
-})
+
+// 
+// app.post('/newURL', (req,res) => {
+//   const originalUrl = req.body.originalUrl
+//   const newUrl = shortUrlGenerator()
+//   if(!originalUrl){
+//     res.redirect('/')
+//   }
+//   // console.log(originalUrl)
+//   URLshortener.find()
+//     .lean()
+//     .then( urlData => {
+//       const sameUrl = urlData.find( (data) => data.originalUrl === originalUrl)
+//       if(sameUrl){
+//         return res.render('new',{ newUrl: sameUrl.shortUrl})
+//       }else{
+//         return URLshortener.create({
+//             originalUrl: originalUrl,
+//             shortUrl: newUrl
+//           })
+//           .then(() => res.render('new',{newUrl}))
+//         }
+//       })
+//     .catch(error => console.log(error))
+// })
+
+
+// app.get('/4ritalin2pr0jectA11.com/:randomUrl',(req, res) => {
+//   const randomUrl = req.params.randomUrl
+//   const sameUrl = URLshortener.find( urlData => {
+
+//   })
+// })
 
 app.listen( port, () => {
   console.log(`app is running on http://localhost:${port}` )
