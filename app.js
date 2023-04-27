@@ -1,7 +1,7 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
-const {shortUrlGenerator, myHttp} = require("./shortUrlGenerator") //shortUrlGenerator function
+const {shortUrlGenerator, myHttp, http} = require("./shortUrlGenerator") //shortUrlGenerator function
 const URLshortener = require('./models/urlShortener') //資料
 
 const app = express()
@@ -26,10 +26,10 @@ db.once('open', async() => {
 
 
 app.get('/', (req, res) => {
-  console.log(myHttp)
   res.render('index')
 })
 
+// 產生短網址route : findOne()
 app.post('/newUrl', (req, res) => {
   const originalUrl = req.body.originalUrl
   const newUrl = shortUrlGenerator()
@@ -39,6 +39,7 @@ app.post('/newUrl', (req, res) => {
   URLshortener.findOne({ originalUrl : originalUrl})
     .lean()
     .then(urlData => {
+      // 輸入相同網址時，產生一樣的縮址。
       if (urlData){
         res.render('new', {newUrl: urlData.shortUrl})
       }else{
@@ -53,7 +54,7 @@ app.post('/newUrl', (req, res) => {
 })
 
 
-// 
+// 產生短網址route : find()
 // app.post('/newURL', (req,res) => {
 //   const originalUrl = req.body.originalUrl
 //   const newUrl = shortUrlGenerator()
@@ -79,12 +80,22 @@ app.post('/newUrl', (req, res) => {
 // })
 
 
-// app.get('/4ritalin2pr0jectA11.com/:randomUrl',(req, res) => {
-//   const randomUrl = req.params.randomUrl
-//   const sameUrl = URLshortener.find( urlData => {
-
-//   })
-// })
+app.get(`/${myHttp}:randomCode`,(req, res) => { 
+  const randomCode = req.params.randomCode
+  const shortUrl = `${http}${myHttp}${randomCode}`
+  // console.log(randomCode)
+  // console.log(shortUrl)
+  URLshortener.findOne({ shortUrl : shortUrl })
+    .lean()
+    .then(urlData => {
+      if(urlData){
+        res.redirect(`${urlData.originalUrl}`)
+      }else{
+        res.status(404).render("error")
+      }
+    })
+    .catch(error => console.log(error))
+})
 
 app.listen( port, () => {
   console.log(`app is running on http://localhost:${port}` )

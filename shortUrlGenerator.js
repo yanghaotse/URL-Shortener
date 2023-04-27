@@ -1,5 +1,5 @@
 const http = 'http://localhost:3000/'
-const myHttp = '4ritalin2pr0jectA11.com/'
+const myHttp = 'ritalin.com/'
 
 const characterCollection = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split('')
 const numberCollection = "1234567890".split('')
@@ -43,7 +43,7 @@ function shortUrlGenerator() {
 }
 
 
-module.exports = { shortUrlGenerator, myHttp }
+module.exports = { shortUrlGenerator, myHttp, http}
 
 // module.exports = {
 //   shortUrlGenerate: shortUrlGenerate,
