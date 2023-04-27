@@ -1,9 +1,10 @@
-<form action="/newURL" method="POST" class="row">
+<form action="/newURL" method="POST" id="generate-form">
   <div class="input-group has-validation">
-    <input type="text" name="originalUrl" placeholder="請輸入網址..." class="form-control is-invalid" aria-describedby="validationFeedback" required>
+    <input type="text" name="originalUrl" placeholder="請輸入網址..." class="form-control" aria-describedby="validationFeedback" required>
+    <button type="submit" id="generate-button">Generate</button>
     <div class="invalid-feedback" id="validationFeedback">
       Please enter URL.
     </div>
-    <button type="submit">Generate</button>
+    
   </div>
 </form>

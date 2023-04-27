@@ -100,10 +100,3 @@ app.get(`/${myHttp}:randomCode`,(req, res) => {
 app.listen( port, () => {
   console.log(`app is running on http://localhost:${port}` )
 })
-
-    // .then(() => {
-    //   const newUrl = URLshortener.find(data => {
-    //     data.originalUrl.toLowerCase().trim().includes(originalUrl.toLowerCase().trim())
-    //     return 
-    //   })
-    // })
