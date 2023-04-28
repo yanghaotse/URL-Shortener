@@ -37,5 +37,22 @@
       generateForm.classList.add('was-validated')
     })
   </script>
+{{!-- copy功能 --}}
+  <script>
+    function copyToClipboard(text){
+       navigator.clipboard.writeText(text)
+       .then(
+        function copySuccess() {
+          alert("Copied to clipboard!")
+       },function copyFailed() {
+          alert("Failed to copy to clipboard!")
+       })
+    }
+    const copyButton = document.querySelector('#copy-button')
+    const shortUrlInput = document.querySelector('#shortUrl-input')
+    copyButton.addEventListener('click', function onCopyButtonClicked(){
+      copyToClipboard(shortUrlInput.value)
+    })
+  </script>
 </body>
 </html>

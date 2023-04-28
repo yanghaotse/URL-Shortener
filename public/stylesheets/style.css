@@ -22,8 +22,7 @@ a{
 }
 
 #originalUrl-input{
-  background-color: #efefef;
-  /* height:100%; */
+  font-weight: 600;
 }
 
 #shortUrl-input{
