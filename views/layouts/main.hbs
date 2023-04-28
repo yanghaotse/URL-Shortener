@@ -27,13 +27,16 @@
     integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
     integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="../../shortUrlGenerator.js"></script>
 {{!-- 表單驗證監聽 --}}
 {{!-- 若使用者沒有輸入內容，就按下了送出鈕，需要防止表單送出並提示使用者 --}}
   <script>
     const shortenButton = document.querySelector('#shorten-button')
-    const generateForm = document.querySelector('#generate-form')
-    shortenButton.addEventListener('click', function onGenerateButtonClicked(event){
-      generateForm.classList.add('was-validated')
+    const shortenForm = document.querySelector('#shorten-form')
+    //const originalUrlInput = document.querySelector('originalUrl-input')
+    //const mtHttp = require('./shortUrlGenerator.js').myHttp
+    shortenButton.addEventListener('click', function onShortenButtonClicked(event){
+      shortenForm.classList.add('was-validated')
     })
   </script>
 {{!-- copy功能 --}}
@@ -53,5 +56,6 @@
       copyToClipboard(shortUrlInput.value)
     })
   </script>
+  
 </body>
 </html>

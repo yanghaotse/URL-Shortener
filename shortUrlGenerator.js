@@ -42,10 +42,9 @@ function shortUrlGenerator() {
   return basicShortUrlGenerator()
 }
 
-
-module.exports = { shortUrlGenerator, myHttp, http}
-
 // module.exports = {
 //   shortUrlGenerate: shortUrlGenerate,
 //   myHttp: myHttp
 // };
+module.exports = { shortUrlGenerator, myHttp, http}
+

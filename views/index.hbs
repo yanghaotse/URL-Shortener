@@ -1,12 +1,10 @@
-<form action="/newURL" method="POST" id="generate-form">
+<form action="/shorten" method="POST" id="shorten-form" novalidate>
   <div class="input-group has-validation">
     <input type="text" name="originalUrl" placeholder="Input URL here..." class="form-control" aria-describedby="validationFeedback" id="originalUrl-input" required>
+    
     <div class="invalid-feedback" id="validationFeedback">
       Please enter URL.
     </div>
-    {{!-- <div class="shorten-button-div">
-      
-    </div> --}}
   </div>
   <button type="submit" class="btn btn-outline-primary mt-3" id="shorten-button">Shorten</button>
 </form>

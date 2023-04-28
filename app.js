@@ -30,29 +30,54 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
+
 // route: POST產生短網址 -> findOne()
-app.post('/newUrl', (req, res) => {
+app.post('/shorten',async(req, res) => {
   const originalUrl = req.body.originalUrl
-  const newUrl = shortUrlGenerator()
-  if(!originalUrl){
+  const newUrl = shortUrlGenerator();
+  if(!originalUrl || originalUrl === ''){
     res.redirect('/')
   }
-  URLshortener.findOne({ originalUrl : originalUrl})
-    .lean()
-    .then(urlData => {
-      // 輸入相同網址時，產生一樣的縮址。
-      if (urlData){
-        res.render('new', {newUrl: urlData.shortUrl})
-      }else{
-        URLshortener.create({
-          originalUrl: originalUrl,
-          shortUrl: newUrl
-        })
-        .then(() => res.render('new', {newUrl}))
-      }
+  const existUrl = await URLshortener.findOne({ originalUrl : originalUrl }).lean()
+  if(existUrl){
+    res.render('new',{ newUrl : existUrl.shortUrl})
+    return
+  }else if(await URLshortener.exists({ shortUrl : originalUrl })){
+    res.render('error',{ message : 'The URL has already been used'})
+  }else{
+    URLshortener.create({
+      originalUrl: originalUrl,
+      shortUrl: newUrl
     })
-    .catch(error => console.log(error))
+    .then(() => res.render('new',{ newUrl : newUrl }))
+  }
 })
+
+
+
+// route: POST產生短網址 -> findOne()
+// app.post('/newUrl', (req, res) => {
+//   const originalUrl = req.body.originalUrl
+//   const newUrl = shortUrlGenerator()
+//   if(!originalUrl){
+//     res.redirect('/')
+//   }
+//   URLshortener.findOne({ originalUrl : originalUrl})
+//     .lean()
+//     .then(urlData => {
+//       // 輸入相同網址時，產生一樣的縮址。
+//       if (urlData){
+//         res.render('new', {newUrl: urlData.shortUrl})
+//       }else{
+//         URLshortener.create({
+//           originalUrl: originalUrl,
+//           shortUrl: newUrl
+//         })
+//         .then(() => res.render('new', {newUrl}))
+//       }
+//     })
+//     .catch(error => console.log(error))
+// })
 
 // route: POST產生短網址 -> find()
 // app.post('/newURL', (req,res) => {
@@ -89,8 +114,8 @@ app.get(`/${myHttp}:randomCode`,(req, res) => {
     .then(urlData => {
       if(urlData){
         res.redirect(`${urlData.originalUrl}`)
-      }else{
-        res.status(404).render("error")
+      }else{ //若使用者輸入的短網址錯誤
+        res.status(404).render("error", { message : 'The shortURL does not exist.'})
       }
     })
     .catch(error => console.log(error))
