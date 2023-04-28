@@ -1,3 +1,7 @@
+/* h1,h2, */
+body{
+  font-family: 'Raleway', sans-serif;
+}
 .container{
   width: 800px;
   margin: 10% auto;
@@ -21,14 +25,6 @@ a{
   height: 50px;
 }
 
-#originalUrl-input{
-  font-weight: 600;
-}
-
-#shortUrl-input{
-  background-color: #ffffff
-  
-}
 
 #shorten-button{
   width:400px;
