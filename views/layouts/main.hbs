@@ -37,6 +37,10 @@
     const shortenButton = document.querySelector('#shorten-button')
     const shortenForm = document.querySelector('#shorten-form')
     shortenButton.addEventListener('click', function onShortenButtonClicked(event){
+      if (!shortenForm.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
       shortenForm.classList.add('was-validated')
     })
   </script>

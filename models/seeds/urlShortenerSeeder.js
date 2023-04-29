@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const URLshortener = require("../urlShortener")
-const shortUrl = require('../../shortUrlGenerator')
+const shortUrl = require('../../shortUrlGenerator').shortUrlGenerator
 
 
 if (process.env.NODE_URI !== "production"){
@@ -14,9 +14,10 @@ db.on('error', () => {
 })
 db.once('open', async() => {
   console.log('MongDB connected!')
+  // 寫入一筆資料測試是否成功
   try{
     await URLshortener.create({
-      originalUrl: "https://www.youtube.com/",
+      originalUrl: "https://getbootstrap.com/",
       shortUrl: shortUrl()
     })
     console.log("urlShortenerSeeder done .")

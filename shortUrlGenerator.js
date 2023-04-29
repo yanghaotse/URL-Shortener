@@ -1,5 +1,5 @@
-const http = 'http://localhost:3000/'
-const myHttp = 'ritalin.com/'
+const http = 'http://localhost:3000'
+const myHttp = 'ritalin.com'
 
 const characterCollection = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split('')
 const numberCollection = "1234567890".split('')
@@ -34,7 +34,7 @@ function basicShortUrlGenerator(){
     randomShort += randomCharacter()
   }
   randomShort += randomNumber()
-  const shortUrl = `${http}${myHttp}${randomGenerator(randomShort)}`
+  const shortUrl = `${http}/${myHttp}/${randomGenerator(randomShort)}`
   return shortUrl
 }
 
