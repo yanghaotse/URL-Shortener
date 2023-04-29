@@ -6,10 +6,10 @@ mongoose.connect(process.env.MONGODB_URI,  { useNewUrlParser: true,  useUnifiedT
 
 const db = mongoose.connection 
 db.on('error', () => {
-  console.log("mongoDB error!")
+  console.log("MongoDB error!")
 })
 db.once('open', async() => {
-  console.log("mongoDB connect!")
+  console.log("MongoDB connect!")
 })
 
 module.exports = db

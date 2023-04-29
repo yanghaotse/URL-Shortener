@@ -31,7 +31,11 @@ npm run dev
 ```
 App is running on http://localhost:3000
 ```
-6. 若欲暫停使用
+6. 若看見此行訊息代表與資料庫MongoDB連線成功
+```
+MongoDB connect!
+```
+7. 若欲暫停使用
 ```
 ctrl + c
 ```

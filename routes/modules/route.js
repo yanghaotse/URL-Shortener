@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const URLshortener = require('../../models/urlShortener')
-const {shortUrlGenerator, myHttp, http} = require('../../shortUrlGenerator')
+const URLshortener = require('../../models/urlShortener') //資料庫
+const {shortUrlGenerator, myHttp, http} = require('../../shortUrlGenerator') //短網址產生器
 
 
 // route: POST產生短網址 -> findOne() *新增:判斷使用者輸入的網址是否為已經產生過的短網址
@@ -39,8 +39,8 @@ router.get(`/:randomCode`,(req, res) => {
     .lean()
     .then(urlData => {
       if(urlData){
-        res.redirect(`${urlData.originalUrl}`)
-      }else{ //若使用者輸入的短網址有誤
+        res.redirect(`${urlData.originalUrl}`) //重新導向到對應的原網址
+      }else{ //若輸入的短網址有誤
         res.status(404).render("error", { message : 'The shortURL does not exist.'})
       }
     })
