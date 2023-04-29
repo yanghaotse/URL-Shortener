@@ -1,24 +1,15 @@
-const mongoose = require("mongoose")
+
 const URLshortener = require("../urlShortener")
-const shortUrl = require('../../shortUrlGenerator').shortUrlGenerator
+const shortUrlGenerator = require('../../shortUrlGenerator').shortUrlGenerator
+const db = require('../../config/mongoose')
 
-
-if (process.env.NODE_URI !== "production"){
-  require('dotenv').config()
-}
-mongoose.connect(process.env.MONGODB_URI,{useNewUrlParser: true,  useUnifiedTopology: true})
-
-const db = mongoose.connection
-db.on('error', () => {
-  console.log("MongoDB error!")
-})
 db.once('open', async() => {
   console.log('MongDB connected!')
   // 寫入一筆資料測試是否成功
   try{
     await URLshortener.create({
       originalUrl: "https://getbootstrap.com/",
-      shortUrl: shortUrl()
+      shortUrl: shortUrlGenerator()
     })
     console.log("urlShortenerSeeder done .")
   }catch(error){
